@@ -23231,9 +23231,9 @@ var Search = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'searchDiv' },
-        _react2.default.createElement('input', { name: 'term', className: 'term', placeholder: 'what would you like?', onChange: this.handleChange }),
+        _react2.default.createElement('input', { name: 'term', className: 'term', placeholder: 'what would you like to do?', onChange: this.handleChange }),
         _react2.default.createElement('br', null),
-        _react2.default.createElement('input', { name: 'location', className: 'location', placeholder: 'enter a location', onChange: this.handleChange }),
+        _react2.default.createElement('input', { name: 'location', className: 'location', placeholder: 'where would you like to do it?', onChange: this.handleChange }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
@@ -23295,32 +23295,28 @@ var Suggestion = function (_React$Component) {
         'div',
         { className: 'suggestionDiv' },
         _react2.default.createElement(
-          'h2',
-          null,
-          'HERE IS YOUR SUGGESTION:'
-        ),
-        _react2.default.createElement(
-          'a',
-          { href: this.props.suggestion.url },
-          _react2.default.createElement('img', { className: 'suggestionImage', src: this.props.suggestion.image_url })
-        ),
-        _react2.default.createElement(
           'div',
-          null,
-          'name: ',
-          this.props.suggestion.name
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          'reviews: ',
-          this.props.suggestion.review_count
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          'rating: ',
-          this.props.suggestion.rating
+          { className: 'img__wrap' },
+          _react2.default.createElement(
+            'a',
+            { href: this.props.suggestion.url },
+            _react2.default.createElement('img', { className: 'img__img', src: this.props.suggestion.image_url })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            this.props.suggestion.name
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            this.props.suggestion.review_count
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            this.props.suggestion.rating
+          )
         )
       );
     }
@@ -24271,22 +24267,22 @@ var Recents = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'recentsDiv' },
         _react2.default.createElement(
           'button',
           { onClick: this.getRecents.bind(this) },
-          ' Get Recents '
+          'Recent'
         ),
         _react2.default.createElement(
           'ul',
-          null,
+          { className: 'recentList' },
           this.state.recents.map(function (item, index) {
             return _react2.default.createElement(
               'li',
               { key: index },
               _react2.default.createElement(
                 'a',
-                { href: item.url },
+                { className: 'recentSuggestions', href: item.url },
                 item.name
               )
             );

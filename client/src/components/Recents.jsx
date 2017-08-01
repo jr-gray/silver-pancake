@@ -22,10 +22,10 @@ class Recents extends React.Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.getRecents.bind(this)}> Get Recents </button>
-        <ul>
-          {this.state.recents.map((item, index) => { return <li key={index}><a href={item.url}>{item.name}</a></li> })}
+      <div className="recentsDiv">
+        <button onClick={this.getRecents.bind(this)}>Recent</button>
+        <ul className="recentList">
+          {this.state.recents.map((item, index) => { return <li key={index}><a className="recentSuggestions" href={item.url}>{item.name}</a></li> })}
         </ul>
       </div>
     )
