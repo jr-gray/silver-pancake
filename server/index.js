@@ -28,14 +28,18 @@ app.get('/api/recents', (req, res) => {
 
 app.post('/api/search', (req, res) => {
   console.log('POST invoked! Check out the body below:')
-  console.log('body is >>>', req.body);
-  // yelp.searchBusiness({ 
-  //   term: req.body.term,
-  //   location: req.body.location
-  // })
-  //   .then(result => { res.send(result) }) // send one random business, or top rated
-  //   .catch(err => { console.error(err) });
-  res.send('OH WE GOOD');
+  yelp.searchBusiness({ 
+    term: req.body.term,
+    location: req.body.location
+  })
+    .then(result => { 
+      // var rand = Math.random() * 19; 
+      // console.log('random number is', rand)
+      // var businesses = result.data.businesses; // array of objects
+      // console.log('businesses are ', businesses)
+      res.send(result.businesses) 
+    })
+    .catch(err => { console.error(err) });
 })
 
 // START SERVER

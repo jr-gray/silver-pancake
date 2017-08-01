@@ -9754,9 +9754,9 @@ var _Search = __webpack_require__(211);
 
 var _Search2 = _interopRequireDefault(_Search);
 
-var _List = __webpack_require__(212);
+var _Suggestion = __webpack_require__(213);
 
-var _List2 = _interopRequireDefault(_List);
+var _Suggestion2 = _interopRequireDefault(_Suggestion);
 
 var _axios = __webpack_require__(192);
 
@@ -9779,7 +9779,8 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      recents: []
+      recents: [],
+      suggestion: {}
     };
     return _this;
   }
@@ -9801,11 +9802,25 @@ var App = function (_React$Component) {
   }, {
     key: 'getSuggestion',
     value: function getSuggestion(term, location) {
-      _axios2.default.post('http://127.0.0.1:3000/api/', {
+      var _this3 = this;
+
+      _axios2.default.post('http://127.0.0.1:3000/api/search', {
         term: term,
         location: location
       }).then(function (response) {
-        console.log(response);
+        var rand = Math.floor(Math.random() * 19);
+        var business = response.data[rand];
+        var suggestion = _this3.state.suggestion;
+        suggestion.name = business.name;
+        suggestion.image_url = business.image_url;
+        suggestion.url = business.url;
+        suggestion.review_count = business.review_count;
+        suggestion.rating = business.rating;
+
+        _this3.setState({
+          recents: _this3.state.recents,
+          suggestion: suggestion
+        });
       }).catch(function (err) {
         console.error(err);
       });
@@ -9822,7 +9837,7 @@ var App = function (_React$Component) {
           'Silver Pancake'
         ),
         _react2.default.createElement(_Search2.default, { onSearch: this.getSuggestion.bind(this) }),
-        _react2.default.createElement(_List2.default, { recents: this.state.recents })
+        _react2.default.createElement(_Suggestion2.default, { suggestion: this.state.suggestion })
       );
     }
   }]);
@@ -24058,27 +24073,27 @@ var Search = function (_React$Component) {
     _this.state = {
       formValues: {}
     };
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.search = _this.search.bind(_this);
     return _this;
   }
 
   _createClass(Search, [{
-    key: 'onTermChange',
-    value: function onTermChange(e) {
-      this.setState({
-        term: e.target.value
-      });
+    key: 'handleChange',
+    value: function handleChange(e) {
+      var formValues = this.state.formValues;
+      var name = e.target.name;
+      var value = e.target.value;
+
+      formValues[name] = value;
+
+      this.setState({ formValues: formValues });
     }
   }, {
-    key: 'onLocationChange',
-    value: function onLocationChange(e) {
-      this.setState({
-        location: e.target.value
-      });
-    }
-  }, {
-    key: 'Search',
-    value: function Search() {
-      this.props.onSearch(this.state.term, this.state.location);
+    key: 'search',
+    value: function search() {
+      console.log('inside search function!');
+      this.props.onSearch(this.state.formValues.term, this.state.formValues.location);
     }
   }, {
     key: 'render',
@@ -24086,11 +24101,11 @@ var Search = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        'Something to do: ',
-        _react2.default.createElement('input', { value: this.state.term, onChange: this.onTermChange }),
+        'Something to do:',
+        _react2.default.createElement('input', { name: 'term', onChange: this.handleChange }),
         _react2.default.createElement('br', null),
-        'Somewhere to do it*: ',
-        _react2.default.createElement('input', { value: this.state.location, onChange: this.onLocationChange }),
+        'Somewhere to do it*:',
+        _react2.default.createElement('input', { name: 'location', onChange: this.handleChange }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
@@ -24107,7 +24122,8 @@ var Search = function (_React$Component) {
 exports.default = Search;
 
 /***/ }),
-/* 212 */
+/* 212 */,
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24135,30 +24151,63 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var List = function (_React$Component) {
-  _inherits(List, _React$Component);
+var Suggestion = function (_React$Component) {
+  _inherits(Suggestion, _React$Component);
 
-  function List() {
-    _classCallCheck(this, List);
+  function Suggestion(props) {
+    _classCallCheck(this, Suggestion);
 
-    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
+    // passing in suggestion as { name: '', image_url: '', url: '', review_count: '', rating: '' }
+    return _possibleConstructorReturn(this, (Suggestion.__proto__ || Object.getPrototypeOf(Suggestion)).call(this, props));
   }
 
-  _createClass(List, [{
+  _createClass(Suggestion, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
-        'LIST COMPONENT'
+        _react2.default.createElement(
+          'h2',
+          null,
+          'HERE IS YOUR SUGGESTION:'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'drumroll please..........'
+        ),
+        _react2.default.createElement(
+          'a',
+          { href: this.props.suggestion.url },
+          _react2.default.createElement('img', { className: 'suggestionImage', src: this.props.suggestion.image_url })
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          'name: ',
+          this.props.suggestion.name
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          'reviews: ',
+          this.props.suggestion.review_count
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          'rating: ',
+          this.props.suggestion.rating
+        )
       );
     }
   }]);
 
-  return List;
+  return Suggestion;
 }(_react2.default.Component);
 
-exports.default = List;
+exports.default = Suggestion;
 
 /***/ })
 /******/ ]);
