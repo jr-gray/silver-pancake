@@ -23305,16 +23305,19 @@ var Suggestion = function (_React$Component) {
           _react2.default.createElement(
             'div',
             null,
+            'name: ',
             this.props.suggestion.name
           ),
           _react2.default.createElement(
             'div',
             null,
+            'reviews: ',
             this.props.suggestion.review_count
           ),
           _react2.default.createElement(
             'div',
             null,
+            'rating: ',
             this.props.suggestion.rating
           )
         )

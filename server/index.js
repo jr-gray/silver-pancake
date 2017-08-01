@@ -6,7 +6,6 @@ const path = require('path');
 const app = express();
 const yelp = require('../yelp/yelp.js');
 const Business = require('../database');
-// const dummyData = require('../test-data.json');
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.urlencoded({ extended: true }));

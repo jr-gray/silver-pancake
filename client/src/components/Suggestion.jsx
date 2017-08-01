@@ -16,9 +16,9 @@ class Suggestion extends React.Component {
             <p class="img__description">reviews: {this.props.suggestion.review_count}</p>
             <p class="img__description">rating: {this.props.suggestion.rating}</p>
           </div> */}
-          <div>{this.props.suggestion.name}</div>
-          <div>{this.props.suggestion.review_count}</div>
-          <div>{this.props.suggestion.rating}</div>
+          <div>name: {this.props.suggestion.name}</div>
+          <div>reviews: {this.props.suggestion.review_count}</div>
+          <div>rating: {this.props.suggestion.rating}</div>
         </div>
       </div>
     )
