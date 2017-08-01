@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Search from './components/Search.jsx';
 import Suggestion from './components/Suggestion.jsx';
+import Recents from './components/Recents.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -13,14 +14,14 @@ class App extends React.Component {
     }
   }
 
-  getRecents() {
-    axios.get('http://127.0.0.1:3000/api/recents')
-    .then(response => {
-      this.setState({ recents: response.data });
-      console.log('GET request successful! Setting state to', response.data);
-    })
-    .catch(err => { if (err) { console.error(err) }})
-  }
+  // getRecents() {
+  //   axios.get('http://127.0.0.1:3000/api/recents')
+  //   .then(response => {
+  //     this.setState({ recents: response.data });
+  //     console.log('GET request successful! Setting state to', response.data);
+  //   })
+  //   .catch(err => { if (err) { console.error(err) }})
+  // }
 
   getSuggestion(term, location) {
     axios.post('http://127.0.0.1:3000/api/search', {
@@ -51,6 +52,7 @@ class App extends React.Component {
         <h1>Silver Pancake</h1>
         <Search onSearch={this.getSuggestion.bind(this)}/>
         <Suggestion suggestion={this.state.suggestion}/>
+        <Recents recents={this.state.recents} />
       </div>
     )
   }

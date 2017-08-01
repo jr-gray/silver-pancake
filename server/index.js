@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const yelp = require('../yelp/yelp.js');
-const db = require('../database');
+const Business = require('../database');
 // const dummyData = require('../test-data.json');
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -20,26 +20,19 @@ require('../database');
 //==============
 app.get('/api/recents', (req, res) => {
   console.log('grabbing data from db!');
-  db.find({}, (err, data) => {
+  Business.find({}, (err, data) => {
     console.log('data retrieved! Sending to client>>>', data);
     res.send(data);
   })
 });
 
 app.post('/api/search', (req, res) => {
-  console.log('POST invoked! Check out the body below:')
   yelp.searchBusiness({ 
     term: req.body.term,
     location: req.body.location
   })
-    .then(result => { 
-      // var rand = Math.random() * 19; 
-      // console.log('random number is', rand)
-      // var businesses = result.data.businesses; // array of objects
-      // console.log('businesses are ', businesses)
-      res.send(result.businesses) 
-    })
-    .catch(err => { console.error(err) });
+  .then(result => { res.send(result.businesses) })
+  .catch(err => { console.error(err) });
 })
 
 // START SERVER
