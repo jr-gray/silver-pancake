@@ -27,8 +27,10 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongoose": "^4.11.5",
+    "node-yelp-api-v3": "^1.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "webpack": "^3.4.1"
+    "webpack": "^3.4.1",
+    "yelp": "^1.0.2"
   }
 }

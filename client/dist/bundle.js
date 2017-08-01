@@ -9773,22 +9773,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App() {
+  function App(props) {
     _classCallCheck(this, App);
 
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = {};
+    _this.state = {
+      recents: []
+    };
     return _this;
   }
 
-  //   componentDidMount() {
-  //     axios.get('http://127.0.0.1/api')
-  //     .then(data => { console.log(data) })
-  //     .catch(err => { console.error(err) })
-  //   }
-
   _createClass(App, [{
+    key: 'getRecents',
+    value: function getRecents() {
+      var _this2 = this;
+
+      _axios2.default.get('http://127.0.0.1:3000/api/recents').then(function (response) {
+        _this2.setState({ recents: response.data });
+        console.log('GET request successful! Setting state to', response.data);
+      }).catch(function (err) {
+        if (err) {
+          console.error(err);
+        }
+      });
+    }
+  }, {
+    key: 'getSuggestion',
+    value: function getSuggestion(term, location) {
+      _axios2.default.post('http://127.0.0.1:3000/api/', {
+        term: term,
+        location: location
+      }).then(function (response) {
+        console.log(response);
+      }).catch(function (err) {
+        console.error(err);
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -9799,8 +9821,8 @@ var App = function (_React$Component) {
           null,
           'Silver Pancake'
         ),
-        _react2.default.createElement(_Search2.default, null),
-        _react2.default.createElement(_List2.default, null)
+        _react2.default.createElement(_Search2.default, { onSearch: this.getSuggestion.bind(this) }),
+        _react2.default.createElement(_List2.default, { recents: this.state.recents })
       );
     }
   }]);
@@ -24017,10 +24039,6 @@ var _react = __webpack_require__(82);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(98);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24032,19 +24050,53 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Search = function (_React$Component) {
   _inherits(Search, _React$Component);
 
-  function Search() {
+  function Search(props) {
     _classCallCheck(this, Search);
 
-    return _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this));
+    var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+
+    _this.state = {
+      formValues: {}
+    };
+    return _this;
   }
 
   _createClass(Search, [{
+    key: 'onTermChange',
+    value: function onTermChange(e) {
+      this.setState({
+        term: e.target.value
+      });
+    }
+  }, {
+    key: 'onLocationChange',
+    value: function onLocationChange(e) {
+      this.setState({
+        location: e.target.value
+      });
+    }
+  }, {
+    key: 'Search',
+    value: function Search() {
+      this.props.onSearch(this.state.term, this.state.location);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
-        'SEARCH COMPONENT'
+        'Something to do: ',
+        _react2.default.createElement('input', { value: this.state.term, onChange: this.onTermChange }),
+        _react2.default.createElement('br', null),
+        'Somewhere to do it*: ',
+        _react2.default.createElement('input', { value: this.state.location, onChange: this.onLocationChange }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.search },
+          ' Search '
+        )
       );
     }
   }]);
