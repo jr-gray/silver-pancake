@@ -13,7 +13,7 @@ class Recents extends React.Component {
     console.log('getRecents invoked!^.^');
     axios.get('http://127.0.0.1:3000/api/recents')
     .then(response => {
-      var recents = this.state.recents;
+      var recents = [];
       response.data.forEach(item => { recents.push(item) })
       this.setState({ recents });
     })

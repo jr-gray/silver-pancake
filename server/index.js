@@ -31,7 +31,23 @@ app.post('/api/search', (req, res) => {
     term: req.body.term,
     location: req.body.location
   })
-  .then(result => { res.send(result.businesses) })
+  .then(result => { 
+    var rand = Math.floor(Math.random() * 19);
+    var randBusiness = result.businesses[rand];
+    console.log(randBusiness);
+    var business = new Business({
+      name: randBusiness.name,
+      image_url: randBusiness.image_url,
+      is_closed: randBusiness.is_closed,
+      url: randBusiness.url,
+      review_count: randBusiness.review_count,
+      rating: randBusiness.rating
+    })  
+    business.save((err) => {
+      if (err) { return console.error(err) }
+    }) 
+    res.send(randBusiness); 
+  })
   .catch(err => { console.error(err) });
 })
 

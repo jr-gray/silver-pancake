@@ -29,14 +29,15 @@ class App extends React.Component {
       location: location
     })
     .then(response => { 
-      var rand = Math.floor(Math.random() * 19);
-      var business = response.data[rand];
+      // var rand = Math.floor(Math.random() * 19);
+      // var business = response.data[rand];
       var suggestion = this.state.suggestion;
-      suggestion.name = business.name;
-      suggestion.image_url = business.image_url;
-      suggestion.url = business.url;
-      suggestion.review_count = business.review_count;
-      suggestion.rating = business.rating;
+      var res = response.data;
+      suggestion.name = res.name;
+      suggestion.image_url = res.image_url;
+      suggestion.url = res.url;
+      suggestion.review_count = res.review_count;
+      suggestion.rating = res.rating;
 
       this.setState({
         recents: this.state.recents, 

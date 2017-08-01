@@ -10506,14 +10506,15 @@ var App = function (_React$Component) {
         term: term,
         location: location
       }).then(function (response) {
-        var rand = Math.floor(Math.random() * 19);
-        var business = response.data[rand];
+        // var rand = Math.floor(Math.random() * 19);
+        // var business = response.data[rand];
         var suggestion = _this2.state.suggestion;
-        suggestion.name = business.name;
-        suggestion.image_url = business.image_url;
-        suggestion.url = business.url;
-        suggestion.review_count = business.review_count;
-        suggestion.rating = business.rating;
+        var res = response.data;
+        suggestion.name = res.name;
+        suggestion.image_url = res.image_url;
+        suggestion.url = res.url;
+        suggestion.review_count = res.review_count;
+        suggestion.rating = res.rating;
 
         _this2.setState({
           recents: _this2.state.recents,
@@ -24257,7 +24258,7 @@ var Recents = function (_React$Component) {
 
       console.log('getRecents invoked!^.^');
       _axios2.default.get('http://127.0.0.1:3000/api/recents').then(function (response) {
-        var recents = _this2.state.recents;
+        var recents = [];
         response.data.forEach(function (item) {
           recents.push(item);
         });
