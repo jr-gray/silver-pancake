@@ -10531,9 +10531,13 @@ var App = function (_React$Component) {
         'div',
         { className: 'main' },
         _react2.default.createElement(
-          'h1',
-          null,
-          'Silver Pancake'
+          'div',
+          { className: 'headerDiv' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Silver Pancake'
+          )
         ),
         _react2.default.createElement(_Search2.default, { onSearch: this.getSuggestion.bind(this) }),
         _react2.default.createElement(_Suggestion2.default, { suggestion: this.state.suggestion }),
@@ -23226,12 +23230,10 @@ var Search = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
-        'Something to do:',
-        _react2.default.createElement('input', { name: 'term', onChange: this.handleChange }),
+        { className: 'searchDiv' },
+        _react2.default.createElement('input', { name: 'term', className: 'term', placeholder: 'what would you like?', onChange: this.handleChange }),
         _react2.default.createElement('br', null),
-        'Somewhere to do it*:',
-        _react2.default.createElement('input', { name: 'location', onChange: this.handleChange }),
+        _react2.default.createElement('input', { name: 'location', className: 'location', placeholder: 'enter a location', onChange: this.handleChange }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
@@ -23291,16 +23293,11 @@ var Suggestion = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'suggestionDiv' },
         _react2.default.createElement(
           'h2',
           null,
           'HERE IS YOUR SUGGESTION:'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'drumroll please..........'
         ),
         _react2.default.createElement(
           'a',

@@ -50,7 +50,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="main">
-        <h1>Silver Pancake</h1>
+        <div className="headerDiv"><h1>Silver Pancake</h1></div>
         <Search onSearch={this.getSuggestion.bind(this)}/>
         <Suggestion suggestion={this.state.suggestion}/>
         <Recents recents={this.state.recents} />

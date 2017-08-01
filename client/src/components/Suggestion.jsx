@@ -8,9 +8,8 @@ class Suggestion extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="suggestionDiv">
         <h2>HERE IS YOUR SUGGESTION:</h2>
-        <p>drumroll please..........</p>
         <a href={this.props.suggestion.url}><img className="suggestionImage" src={this.props.suggestion.image_url} /></a>
         <div>name: {this.props.suggestion.name}</div>
         <div>reviews: {this.props.suggestion.review_count}</div>

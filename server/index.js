@@ -21,7 +21,6 @@ require('../database');
 app.get('/api/recents', (req, res) => {
   console.log('grabbing data from db!');
   Business.find({}, (err, data) => {
-    console.log('data retrieved! Sending to client>>>', data);
     res.send(data);
   })
 });
@@ -34,7 +33,6 @@ app.post('/api/search', (req, res) => {
   .then(result => { 
     var rand = Math.floor(Math.random() * 19);
     var randBusiness = result.businesses[rand];
-    console.log(randBusiness);
     var business = new Business({
       name: randBusiness.name,
       image_url: randBusiness.image_url,

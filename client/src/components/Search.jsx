@@ -27,12 +27,10 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
-        Something to do: 
-        <input name="term" onChange={this.handleChange} />
+      <div className="searchDiv">
+        <input name="term" className="term" placeholder="what would you like?" onChange={this.handleChange} />
         <br/>
-        Somewhere to do it*: 
-        <input name="location" onChange={this.handleChange} />
+        <input name="location" className="location" placeholder="enter a location" onChange={this.handleChange} />
         <br/>
         <button onClick={this.search}> Search </button>
       </div>
